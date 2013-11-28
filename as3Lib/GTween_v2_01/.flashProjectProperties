@@ -1,0 +1,34 @@
+<projectDescription>
+  <id>1255826452933</id>
+  <name>Test</name>
+  <asVersion>0</asVersion>
+  <boundTemplate>file:///Macintosh HD/Users/grant/Library/Application Support/Adobe/Flash CS4/en/Configuration/Project/templates/boundClass_as3.as</boundTemplate>
+  <classTemplate>file:///Macintosh HD/Users/grant/Library/Application Support/Adobe/Flash CS4/en/Configuration/Project/templates/standardClass_as3.as</classTemplate>
+  <classPath>.</classPath>
+  <defaultApp>file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/Test.fla</defaultApp>
+  <rootURI>file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/</rootURI>
+  <flexSDK/>
+  <sources editable="false"/>
+  <libraries editable="false"/>
+  <externalLibraries editable="false"/>
+  <compileList editable="false"/>
+  <recentFiles editable="false">
+    <uri label="SimpleTest.fla">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/SimpleTest.fla</uri>
+    <uri label="GTween.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/com/gskinner/motion/GTween.as</uri>
+    <uri label="TransformationSkewPlugin.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/com/gskinner/motion/plugins/TransformationSkewPlugin.as</uri>
+    <uri label="SoundTransformPlugin.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/com/gskinner/motion/plugins/SoundTransformPlugin.as</uri>
+    <uri label="SnappingPlugin.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/com/gskinner/motion/plugins/SnappingPlugin.as</uri>
+    <uri label="SmartRotationPlugin.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/com/gskinner/motion/plugins/SmartRotationPlugin.as</uri>
+    <uri label="MotionBlurPlugin.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/com/gskinner/motion/plugins/MotionBlurPlugin.as</uri>
+    <uri label="SizeTest.fla">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/SizeTest.fla</uri>
+    <uri label="CurrentFramePlugin.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/com/gskinner/motion/plugins/CurrentFramePlugin.as</uri>
+    <uri label="ColorTransformPlugin.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/com/gskinner/motion/plugins/ColorTransformPlugin.as</uri>
+    <uri label="ColorAdjustPlugin.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/com/gskinner/motion/plugins/ColorAdjustPlugin.as</uri>
+    <uri label="BlurPlugin.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/com/gskinner/motion/plugins/BlurPlugin.as</uri>
+    <uri label="IGTweenPlugin.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/com/gskinner/motion/plugins/IGTweenPlugin.as</uri>
+    <uri label="AutoHidePlugin.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/com/gskinner/motion/plugins/AutoHidePlugin.as</uri>
+    <uri label="GTweener.fla">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/GTweener.fla</uri>
+    <uri label="GTweener.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTweenV2/com/gskinner/motion/GTweener.as</uri>
+  </recentFiles>
+  <locations editable="false"/>
+</projectDescription>

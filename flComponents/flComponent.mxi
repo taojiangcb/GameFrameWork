@@ -1,0 +1,38 @@
+﻿<macromedia-extension
+	name="flComponent"
+	version="1.0.2"
+	type="Sample">
+
+	<!-- Describe the author -->
+	
+	<author name="taojiang" />
+
+	<!-- List the required/compatible products -->
+	
+	<products>
+		<product name="Flash" version="6" primary="true" /> 
+	</products> 
+
+	<!-- Describe the extension -->
+	
+	<description>
+	<![CDATA[
+		游戏中常用的控件
+	]]>
+	</description>
+
+	<!-- Describe where the extension shows in the UI of the product -->
+
+	<ui-access>
+	<![CDATA[
+		组件的使用说明
+	]]>
+	</ui-access>
+
+	<!-- Describe the files that comprise the extension -->
+	
+	<files>
+		<file source="flComponent.fla" destination="$flash/Components" />
+	</files>
+
+</macromedia-extension>

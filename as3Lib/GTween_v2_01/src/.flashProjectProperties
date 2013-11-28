@@ -1,0 +1,25 @@
+<projectDescription>
+  <id>1257348451737</id>
+  <name>GTween3D</name>
+  <asVersion>0</asVersion>
+  <boundTemplate>file:///Macintosh HD/Users/grant/Library/Application Support/Adobe/Flash CS4/en/Configuration/Project/templates/boundClass_as3.as</boundTemplate>
+  <classTemplate>file:///Macintosh HD/Users/grant/Library/Application Support/Adobe/Flash CS4/en/Configuration/Project/templates/standardClass_as3.as</classTemplate>
+  <classPath>.</classPath>
+  <defaultApp>file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTween_v2/src/GTween3D.fla</defaultApp>
+  <rootURI>file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTween_v2/src/</rootURI>
+  <flexSDK/>
+  <sources editable="false"/>
+  <libraries editable="false"/>
+  <externalLibraries editable="false"/>
+  <compileList editable="false"/>
+  <recentFiles editable="false">
+    <uri label="GTweenTimelineDemo.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTween_v2/src/GTweenTimelineDemo.as</uri>
+    <uri label="GTweenSpeedDemo.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTween_v2/src/GTweenSpeedDemo.as</uri>
+    <uri label="GTweenSimpleSequencing.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTween_v2/src/GTweenSimpleSequencing.as</uri>
+    <uri label="GTweenRunDemo.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTween_v2/src/GTweenRunDemo.as</uri>
+    <uri label="GTweenInterrupt.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTween_v2/src/GTweenInterrupt.as</uri>
+    <uri label="GTweenColorAdjust.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTween_v2/src/GTweenColorAdjust.as</uri>
+    <uri label="GTween3D.as">file:///Macintosh HD/Users/grant/Documents/flash/AS3/GTweenV2/GTween_v2/src/GTween3D.as</uri>
+  </recentFiles>
+  <locations editable="false"/>
+</projectDescription>

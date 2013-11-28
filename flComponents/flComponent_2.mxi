@@ -1,0 +1,69 @@
+<macromedia-extension
+    name="组件名称"
+    version="版本号"
+    type="Flash Component" >
+    <author name="江涛" />
+
+    <products>
+        <product name="Flash" version="6" primary="true" />
+    </products>
+
+    <description>
+    <![CDATA[
+               游戏中的一些通用的组件
+    ]]>
+    </description>
+
+    <ui-access>
+    <![CDATA[
+               组件使用说明
+    ]]>
+    </ui-access>
+
+    <files>
+        <file source="BitNumber.fla" destination="$flash/Components" />
+		<file source="Calendar.fla" destination="$flash/Components" />
+    </files>
+
+</macromedia-extension>
+
+<macromedia-extension
+	name="Hello, World!"
+	version="1.0"
+	type="Sample">
+
+	<!-- Describe the author -->
+	
+	<author name="Macromedia" />
+
+	<!-- List the required/compatible products -->
+	
+	<products>
+		<product name="Flash" version="6" primary="true" /> 
+	</products> 
+
+	<!-- Describe the extension -->
+	
+	<description>
+	<![CDATA[
+	This is a sample Exchange item.<br><br>
+	It displays text that reads "Hello, World!".
+	]]>
+	</description>
+
+	<!-- Describe where the extension shows in the UI of the product -->
+
+	<ui-access>
+	<![CDATA[
+	This item is accessed by choosing Help > Samples > hello_world.
+	]]>
+	</ui-access>
+
+	<!-- Describe the files that comprise the extension -->
+	
+	<files>
+		<file source="BitNumber.fla" destination="$flash/Components" />
+		<file source="Calendar.fla" destination="$flash/Components" />
+	</files>
+
+</macromedia-extension>

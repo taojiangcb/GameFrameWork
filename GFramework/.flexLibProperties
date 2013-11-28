@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="gFrameWork.GFrameWork"/>
+    <classEntry path="gFrameWork.IDisabled"/>
+    <classEntry path="gFrameWork.net.amf.AMF"/>
+    <classEntry path="gFrameWork.net.amf.NetStatusCode"/>
+    <classEntry path="gFrameWork.tooltip.DefaultTooltip"/>
+    <classEntry path="gFrameWork.tooltip.ITooltip"/>
+    <classEntry path="gFrameWork.tooltip.TooltipBase"/>
+    <classEntry path="gFrameWork.tooltip.TooltipManager"/>
+    <classEntry path="gFrameWork.uiControl.WindowUIControls"/>
+    <classEntry path="gFrameWork.display.PivotSprite"/>
+    <classEntry path="gFrameWork.url.FlashIDELoader"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
