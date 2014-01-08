@@ -14,7 +14,7 @@ package gFrameWork.uiControl
 	import flash.utils.setTimeout;
 	
 	import gFrameWork.GFrameWork;
-	import gFrameWork.JT_internal;
+	import gFrameWork.JTinternal;
 
 	public class WindowUIControls extends UserInterControls
 	{
@@ -72,7 +72,7 @@ package gFrameWork.uiControl
 		 */		
 		private var toHotID:int = 0;
 		
-		use namespace JT_internal;
+		use namespace JTinternal;
 		
 		public function WindowUIControls()
 		{

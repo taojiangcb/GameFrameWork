@@ -13,11 +13,11 @@ package gFrameWork.uiControl
 	
 	import gFrameWork.GFrameWork;
 	import gFrameWork.IDisabled;
-	import gFrameWork.JT_internal;
+	import gFrameWork.JTinternal;
 	
 	import mx.core.EventPriority;
 	
-	use namespace JT_internal;
+	use namespace JTinternal;
 	
 	public class UserInterControls extends EventDispatcher implements IDisabled
 	{
@@ -59,7 +59,7 @@ package gFrameWork.uiControl
 		/**
 		 * 是否可以使用的标识
 		 */		
-		JT_internal var mCanUse:Boolean = false;
+		JTinternal var mCanUse:Boolean = false;
 		
 		
 		public function UserInterControls()

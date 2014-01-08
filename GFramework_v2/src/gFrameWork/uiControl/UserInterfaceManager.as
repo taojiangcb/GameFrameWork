@@ -120,13 +120,13 @@ import flash.utils.clearTimeout;
 import flash.utils.setTimeout;
 
 import gFrameWork.GFrameWork;
-import gFrameWork.JT_internal;
+import gFrameWork.JTinternal;
 import gFrameWork.uiControl.UIStates;
 import gFrameWork.uiControl.UserInterControls;
 import gFrameWork.uiControl.UserInterfaceManager;
 import gFrameWork.uiControl.WindowUIControls;
 
-use namespace JT_internal;
+use namespace JTinternal;
 
 class UserInternalManager
 {
@@ -467,7 +467,7 @@ class UserInternalManager
 	 */	
 	private function getSpace():DisplayObjectContainer
 	{
-		return GFrameWork.getInstance().winSpace as DisplayObjectContainer;
+		return GFrameWork.getInstance().root;
 	}
 }
 
