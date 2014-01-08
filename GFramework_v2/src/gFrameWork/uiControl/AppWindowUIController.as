@@ -16,7 +16,12 @@ package gFrameWork.uiControl
 	import gFrameWork.GFrameWork;
 	import gFrameWork.JTinternal;
 
-	public class WindowUIControls extends UserInterControls
+	/**
+	 * 模块应用控制器 
+	 * @author JT
+	 * 
+	 */	
+	public class AppWindowUIController extends UserInterControls
 	{
 		
 		/**
@@ -74,7 +79,7 @@ package gFrameWork.uiControl
 		
 		use namespace JTinternal;
 		
-		public function WindowUIControls()
+		public function AppWindowUIController()
 		{
 			super();
 			mUIMutualID = DEFAULT_GROUP_ID;

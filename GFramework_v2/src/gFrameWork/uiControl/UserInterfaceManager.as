@@ -124,7 +124,7 @@ import gFrameWork.JTinternal;
 import gFrameWork.uiControl.UIStates;
 import gFrameWork.uiControl.UserInterControls;
 import gFrameWork.uiControl.UserInterfaceManager;
-import gFrameWork.uiControl.WindowUIControls;
+import gFrameWork.uiControl.AppWindowUIController;
 
 use namespace JTinternal;
 
@@ -154,7 +154,7 @@ class UserInternalManager
 	/**
 	 * 开启的UI窗口列表 
 	 */	
-	private var mOpenWindowList:Vector.<WindowUIControls>;
+	private var mOpenWindowList:Vector.<AppWindowUIController>;
 	
 	
 	/**
@@ -168,7 +168,7 @@ class UserInternalManager
 		guiTable = new Dictionary();
 		mUIRegister = new Dictionary();
 		
-		mOpenWindowList = new Vector.<WindowUIControls>();
+		mOpenWindowList = new Vector.<AppWindowUIController>();
 		
 	}
 	
@@ -246,13 +246,13 @@ class UserInternalManager
 				if(gui.mUI_Control.state != UIStates.SHOW)
 				{
 					//排斥关闭不相关的窗口
-					if(gui.mUI_Control is WindowUIControls)
+					if(gui.mUI_Control is AppWindowUIController)
 					{
-						var index:int = WindowUIControls(gui.mUI_Control).mUIMutualGroups.indexOf(mCurUIMutualID);
+						var index:int = AppWindowUIController(gui.mUI_Control).mUIMutualGroups.indexOf(mCurUIMutualID);
 						if(index <= -1)
 						{
 							closeByMutualID(mCurUIMutualID);
-							mCurUIMutualID =  WindowUIControls(gui.mUI_Control).mGUI_ID;
+							mCurUIMutualID =  AppWindowUIController(gui.mUI_Control).mGUI_ID;
 						}
 					}
 					
@@ -312,7 +312,7 @@ class UserInternalManager
 	public function closeAllWindow():void
 	{
 		var ids:Array = [];
-		var win:WindowUIControls;
+		var win:AppWindowUIController;
 		for each(win in mOpenWindowList)
 		{
 			win.mCanUse = true;
@@ -337,13 +337,13 @@ class UserInternalManager
 	public function windowLayout():void
 	{
 		var rect:Rectangle = new Rectangle();
-		var windows:Vector.<WindowUIControls> = mOpenWindowList;
+		var windows:Vector.<AppWindowUIController> = mOpenWindowList;
 		var i:int = 0;
 		if(windows.length > 0)
 		{
 			for(i = 0; i < windows.length; i++)
 			{
-				var window:WindowUIControls = windows[i] as WindowUIControls;
+				var window:AppWindowUIController = windows[i] as AppWindowUIController;
 				rect.width += window.getGui().width;
 				rect.height = window.getGui().height > rect.height ? window.getGui().height : rect.height;
 			}
@@ -406,9 +406,9 @@ class UserInternalManager
 		var gui:GUI;
 		for each(gui in guiTable)
 		{
-			if(gui.mUI_Control is WindowUIControls)
+			if(gui.mUI_Control is AppWindowUIController)
 			{
-				var index:int = WindowUIControls(gui.mUI_Control).mUIMutualGroups.indexOf(id);
+				var index:int = AppWindowUIController(gui.mUI_Control).mUIMutualGroups.indexOf(id);
 				if(index > -1)
 				{
 					close(gui.mUI_ID);

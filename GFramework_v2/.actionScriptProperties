@@ -39,6 +39,7 @@
           </libraryPathEntry>
         </excludedEntries>
       </libraryPathEntry>
+      <libraryPathEntry kind="3" linkType="1" path="C:/Users/JT/Documents/GitHub/GameFrameWork/as3Lib/protobuf.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
