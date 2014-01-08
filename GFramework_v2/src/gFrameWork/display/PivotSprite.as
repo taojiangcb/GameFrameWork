@@ -129,10 +129,7 @@ package gFrameWork.display
 		{
 			if(parent)
 			{
-				if(parent)
-				{
-					parent.removeChild(this);
-				}
+				parent.removeChild(this);
 			}
 		}
 	}
