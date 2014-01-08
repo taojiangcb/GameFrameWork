@@ -1,7 +1,8 @@
-package application.components
+package gFrameWork.flide
 {
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
@@ -9,10 +10,8 @@ package application.components
 	import flash.system.LoaderContext;
 	
 	import gFrameWork.IDisabled;
+	import gFrameWork.utils.StringUtils;
 	
-	import mx.core.UIComponent;
-	import mx.events.FlexEvent;
-	import mx.utils.StringUtil;
 	
 
 	[Event(name="complete", type="flash.events.Event")]
@@ -20,11 +19,11 @@ package application.components
 	
 	/**
 	 * 
-	 * Flash swf文件加载，除了显示内容以外，还可以通过appDomain反射内容。 
+	 * swf的独立app应用模块加载
 	 * @author JT
 	 * 
 	 */	
-	public class FLIDELoader extends UIComponent implements IDisabled
+	public class FLIDELoader extends Sprite implements IDisabled
 	{
 		
 		/**
@@ -57,29 +56,38 @@ package application.components
 		 */		
 		private const TRY_COUNT:int = 99;
 		
+		protected var initialized:Boolean = false;
 		
 		public function FLIDELoader(source:String = "")
 		{
 			super();
-			addEventListener(FlexEvent.CREATION_COMPLETE,completeHandelr,false,0,true);
+			
+			if(!initialized)
+			{
+				addEventListener(Event.ADDED_TO_STAGE,createCompleteHandler,false,0,true);
+			}
 			mSource = source;
 		}
 		
-		protected override function createChildren():void
+		protected function createChildren():void
 		{
 			mLoader = new Loader();
 			addChild(mLoader);
 		}
 		
-		private function completeHandelr(event:FlexEvent):void
+		private function createCompleteHandler(event:Event):void
 		{
-			removeEventListener(FlexEvent.CREATION_COMPLETE,completeHandelr);
+			removeEventListener(Event.REMOVED_FROM_STAGE,createCompleteHandler);
+			if(initialized) return;
+			createChildren();
 			onLoader();
+			initialized = true;
+			
 		}
 		
 		public function onLoader():void
 		{
-			if(mSource && StringUtil.trim(mSource).length > 0)
+			if(mSource && StringUtils.trim(mSource).length > 0)
 			{
 				clearLoader();
 				mLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,installSuceed);
@@ -126,7 +134,7 @@ package application.components
 		
 		public function dispose():void
 		{
-			removeEventListener(FlexEvent.CREATION_COMPLETE,completeHandelr);
+			removeEventListener(Event.REMOVED_FROM_STAGE,createCompleteHandler);
 			
 			if(objContent && objContent.hasOwnProperty("dispose"))
 			{

@@ -1,15 +1,15 @@
-package flide.controller
+package gFrameWork.flide
 {
 	import flash.display.Sprite;
 	
-	import org.puremvc.as3.patterns.facade.Facade;
-	
+	import gFrameWork.IDisabled;
+
 	/**
-	 * FLIDE的模块内容,其中包括一些主程序传进的基本数据
+	 * swf的应用模块基类
 	 * @author JT
 	 * 
 	 */	
-	public class FLIDEContent extends Sprite
+	public class FLIDEContent extends Sprite implements IDisabled
 	{
 		
 		public static const FACADE:String = "facade";
@@ -47,5 +47,11 @@ package flide.controller
 		{
 			return loaderInfo.applicationDomain.getDefinition(defName);
 		}
+		
+		public function dispose():void
+		{
+			
+		}
+		
 	}
 }
