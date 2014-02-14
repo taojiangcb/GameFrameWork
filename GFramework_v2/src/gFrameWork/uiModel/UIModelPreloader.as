@@ -6,12 +6,13 @@
  * date:20120910
  *  
  */
-package gFrameWork.uiControl
+package gFrameWork.uiModel
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
+	import flash.geom.Point;
 	import flash.net.URLRequest;
 	
 	import gFrameWork.url.FileLoader;
@@ -25,19 +26,14 @@ package gFrameWork.uiControl
 	 * @author taojiang
 	 * 
 	 */	
-	public class UIPreloader extends EventDispatcher
+	public class UIModelPreloader extends EventDispatcher
 	{
 		
 		/**
 		 * 加载的资源文件列表
 		 */		
 		private var mLoadList:Vector.<String>;
-		
-		/**
-		 * 当前加载的资源文件列表 
-		 */		
-		private var mFileList:Vector.<FileLoader>;
-		
+				
 		/**
 		 * 标记是否正在清除中 
 		 */		
@@ -56,14 +52,20 @@ package gFrameWork.uiControl
 		/**
 		 * 当前的UI控制器 
 		 */		
-		private var mUIControl:UserInterControls;
+		private var mUIModel:UIModelBase;
 		
-		public function UIPreloader(uiControl:UserInterControls)
+		
+		private var modelIsPop:Boolean = false;
+		
+		private var modelPoint:Point = null;
+		
+		private var modelData:Object = null
+		
+		
+		public function UIModelPreloader(uiControl:UIModelBase)
 		{
-			mLoadList = new Vector.<String>(); 
-			mFileList = new Vector.<FileLoader>();
-			
-			mUIControl = uiControl;
+			mLoadList = new Vector.<String>(); 			
+			mUIModel = uiControl;
 			
 			registerToLoaded();
 		}
@@ -74,7 +76,7 @@ package gFrameWork.uiControl
 		 */		
 		protected function registerToLoaded():void
 		{
-			var fileUrls:Vector.<String> = mUIControl.getUiLoadFiles();
+			var fileUrls:Vector.<String> = mUIModel.getUiLoadFiles();
 			if(fileUrls)
 			{
 				while(fileUrls.length > 0)
@@ -102,7 +104,7 @@ package gFrameWork.uiControl
 		 */		
 		private function loadComplete(event:Event):void
 		{
-			if(mFileList.length > 0)
+			if(mCurIndex != mLoadList.length)
 			{
 				nextLoad();
 			}
@@ -143,21 +145,21 @@ package gFrameWork.uiControl
 				mCurFileLoader = null;
 			}
 			
-			if(mFileList.length > 0)
+			if(mCurIndex < mLoadList.length)
 			{
-				mCurFileLoader = mFileList.shift();
+				mCurFileLoader = FileLoader.getSharedFileLoader(new URLRequest(mLoadList[mCurIndex]));
 			}
 			
 			if(mCurFileLoader)
 			{
 				mCurIndex++;
+				
 				onLoadChange();
 				
 				mCurFileLoader.addEventListener(Event.COMPLETE,loadComplete,false,0,true);
 				mCurFileLoader.addEventListener(IOErrorEvent.IO_ERROR,loadError,false,0,true);
 				mCurFileLoader.addEventListener(ProgressEvent.PROGRESS,loadProgress,false,0,true);
 				mCurFileLoader.loader();
-				
 			}
 		}
 		
@@ -168,7 +170,8 @@ package gFrameWork.uiControl
 		 */		
 		protected function onComplete():void
 		{
-			
+			mLoadList = new Vector.<String>();
+			UIModelManager.open(mUIModel.modeID,modelIsPop,modelPoint,modelData);
 		}
 		
 		/**
@@ -196,19 +199,19 @@ package gFrameWork.uiControl
 		 * 开始下载当前指定的资源 
 		 * 
 		 */		
-		public function beginLoad():void
+		public function beginLoad(...args):void
 		{
+			
+			if(args.length == 3)
+			{
+				modelIsPop = args[0];
+				modelPoint = args[1];
+				modelData = args[2];
+			}
+			
 			if(!mClearingFag)
 			{
-				for(var i:int = 0; i < loadCount; i++)
-				{
-					mFileList.push(FileLoader.getSharedFileLoader(new URLRequest(mLoadList[i])));
-				}
-				
-				if(mFileList.length > 0)
-				{
-					nextLoad();
-				}
+				nextLoad();
 			}
 			else
 			{
@@ -247,18 +250,6 @@ package gFrameWork.uiControl
 				mCurFileLoader.removeEventListener(ProgressEvent.PROGRESS,loadProgress);
 				mCurFileLoader.dispose();
 				mCurFileLoader = null;
-			}
-			
-			if(mFileList)
-			{
-				while(mFileList.length > 0)
-				{
-					mFileList[0].removeEventListener(Event.COMPLETE,loadComplete);
-					mFileList[0].removeEventListener(IOErrorEvent.IO_ERROR,loadError);
-					mFileList[0].removeEventListener(ProgressEvent.PROGRESS,loadProgress);
-					mFileList[0].dispose();
-					mFileList.shift();
-				}
 			}
 			
 			if(mLoadList && mLoadList.length)

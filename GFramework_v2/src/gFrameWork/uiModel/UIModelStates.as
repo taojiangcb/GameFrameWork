@@ -3,9 +3,9 @@
  * 状态
  *  
  */
-package gFrameWork.uiControl
+package gFrameWork.uiModel
 {
-	public class UIStates
+	public class UIModelStates
 	{
 		public static const NORMAL:uint = 0x000000;
 		public static const SHOW:uint = 0x01;				//打开
