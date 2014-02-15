@@ -6,7 +6,7 @@
  * date:20120910
  *  
  */
-package gFrameWork.uiModel
+package gFrameWork.moudle
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -26,7 +26,7 @@ package gFrameWork.uiModel
 	 * @author taojiang
 	 * 
 	 */	
-	public class UIModelPreloader extends EventDispatcher
+	public class MoudlePreloader extends EventDispatcher
 	{
 		
 		/**
@@ -52,20 +52,20 @@ package gFrameWork.uiModel
 		/**
 		 * 当前的UI控制器 
 		 */		
-		private var mUIModel:UIModelBase;
+		private var mUImoudle:MoudleBase;
 		
 		
-		private var modelIsPop:Boolean = false;
+		private var moudleIsPop:Boolean = false;
 		
-		private var modelPoint:Point = null;
+		private var moudlePoint:Point = null;
 		
-		private var modelData:Object = null
+		private var moudleData:Object = null
 		
 		
-		public function UIModelPreloader(uiControl:UIModelBase)
+		public function MoudlePreloader(uiControl:MoudleBase)
 		{
 			mLoadList = new Vector.<String>(); 			
-			mUIModel = uiControl;
+			mUImoudle = uiControl;
 			
 			registerToLoaded();
 		}
@@ -76,7 +76,7 @@ package gFrameWork.uiModel
 		 */		
 		protected function registerToLoaded():void
 		{
-			var fileUrls:Vector.<String> = mUIModel.getUiLoadFiles();
+			var fileUrls:Vector.<String> = mUImoudle.getUiLoadFiles();
 			if(fileUrls)
 			{
 				while(fileUrls.length > 0)
@@ -171,7 +171,7 @@ package gFrameWork.uiModel
 		protected function onComplete():void
 		{
 			mLoadList = new Vector.<String>();
-			UIModelManager.open(mUIModel.modeID,modelIsPop,modelPoint,modelData);
+			MoudleManager.open(mUImoudle.modeID,moudleIsPop,moudlePoint,moudleData);
 		}
 		
 		/**
@@ -204,9 +204,9 @@ package gFrameWork.uiModel
 			
 			if(args.length == 3)
 			{
-				modelIsPop = args[0];
-				modelPoint = args[1];
-				modelData = args[2];
+				moudleIsPop = args[0];
+				moudlePoint = args[1];
+				moudleData = args[2];
 			}
 			
 			if(!mClearingFag)

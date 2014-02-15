@@ -3,9 +3,9 @@
  * 状态
  *  
  */
-package gFrameWork.uiModel
+package gFrameWork.moudle
 {
-	public class UIModelStates
+	public class MoudleStates
 	{
 		public static const NORMAL:uint = 0x000000;
 		public static const SHOW:uint = 0x01;				//打开

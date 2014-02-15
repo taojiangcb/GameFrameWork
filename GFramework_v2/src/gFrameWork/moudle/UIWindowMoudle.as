@@ -1,4 +1,4 @@
-package gFrameWork.uiModel
+package gFrameWork.moudle
 {
 	import com.gskinner.motion.GTween;
 	import com.gskinner.motion.easing.Sine;
@@ -21,7 +21,7 @@ package gFrameWork.uiModel
 	 * @author JT
 	 * 
 	 */	
-	public class UIWindowModel extends UIModelBase
+	public class UIWindowMoudle extends MoudleBase
 	{
 		
 		/**
@@ -72,9 +72,10 @@ package gFrameWork.uiModel
 		
 		use namespace JTinternal;
 		
-		public function UIWindowModel()
+		public function UIWindowMoudle()
 		{
 			super();
+			moudleType = MoudleType.WINDOW;
 			mUIMutualID = DEFAULT_GROUP_ID;
 			mUIMutualGroups = [DEFAULT_GROUP_ID];
 		}
@@ -83,12 +84,12 @@ package gFrameWork.uiModel
 		{
 			super.internalInit();
 			
-			if(modelContent)
+			if(moudleContent)
 			{
 				//鼠标拖拽
-				mDragArea = new Rectangle(0,0,modelContent.width,Math.min(35,modelContent.height));
-				modelContent.addEventListener(MouseEvent.MOUSE_DOWN,theMouseDownHandler,false,0,true);
-				dragRectangel = new Rectangle(getSpace().x,getSpace().y,getSpace().width - modelContent.width,getSpace().height - modelContent.height);
+				mDragArea = new Rectangle(0,0,moudleContent.width,Math.min(35,moudleContent.height));
+				moudleContent.addEventListener(MouseEvent.MOUSE_DOWN,theMouseDownHandler,false,0,true);
+				dragRectangel = new Rectangle(getSpace().x,getSpace().y,getSpace().width - moudleContent.width,getSpace().height - moudleContent.height);
 			}
 		}
 		
@@ -109,12 +110,12 @@ package gFrameWork.uiModel
 				&& localPt.y <= mDragArea.height)
 			{
 				//拖拽
-				modelContent.stage.removeEventListener(MouseEvent.MOUSE_UP,dragStop);
-				modelContent.stage.addEventListener(MouseEvent.MOUSE_UP,dragStop,false,0,true);
-				Sprite(modelContent).startDrag(false,new Rectangle(getSpace().x,
+				moudleContent.stage.removeEventListener(MouseEvent.MOUSE_UP,dragStop);
+				moudleContent.stage.addEventListener(MouseEvent.MOUSE_UP,dragStop,false,0,true);
+				Sprite(moudleContent).startDrag(false,new Rectangle(getSpace().x,
 					getSpace().y,
-					getSpace().width - modelContent.width,
-					getSpace().height - modelContent.height));
+					getSpace().width - moudleContent.width,
+					getSpace().height - moudleContent.height));
 				hotDisplay();
 			}
 			else
@@ -129,7 +130,7 @@ package gFrameWork.uiModel
 		 */		
 		public function hotDisplay():void
 		{
-			getSpace().setChildIndex(modelContent,getSpace().numChildren - 1);
+			getSpace().setChildIndex(moudleContent,getSpace().numChildren - 1);
 		}
 		
 		/**
@@ -138,9 +139,9 @@ package gFrameWork.uiModel
 		 */		
 		private function dragStop(event:MouseEvent):void
 		{
-			Sprite(modelContent).stopDrag();
-			mPosition.x = modelContent.x;
-			mPosition.y = modelContent.y;
+			Sprite(moudleContent).stopDrag();
+			mPosition.x = moudleContent.x;
+			mPosition.y = moudleContent.y;
 		}
 		
 		/**
@@ -163,16 +164,16 @@ package gFrameWork.uiModel
 		 */		
 		protected override function addToUiSpace():void
 		{
-			if(modelContent)
+			if(moudleContent)
 			{
-				if(!modelContent.parent)
+				if(!moudleContent.parent)
 				{
-					getSpace().addChild(modelContent);
+					getSpace().addChild(moudleContent);
 				}
-				state = UIModelStates.SHOW;
+				state = MoudleStates.SHOW;
 			}
 			
-			modelContent.alpha = 1;
+			moudleContent.alpha = 1;
 			
 			if(toHotID > 0)
 			{
@@ -199,10 +200,10 @@ package gFrameWork.uiModel
 		{
 			if(mDragArea)
 			{
-				modelContent.removeEventListener(MouseEvent.MOUSE_DOWN,theMouseDownHandler);
-				if(modelContent.stage)
+				moudleContent.removeEventListener(MouseEvent.MOUSE_DOWN,theMouseDownHandler);
+				if(moudleContent.stage)
 				{
-					modelContent.stage.removeEventListener(MouseEvent.MOUSE_UP,dragStop);
+					moudleContent.stage.removeEventListener(MouseEvent.MOUSE_UP,dragStop);
 				}
 				else
 				{
@@ -219,7 +220,7 @@ package gFrameWork.uiModel
 		 */		
 		private function hideEffect():void
 		{
-			if(state == UIModelStates.SHOW)
+			if(state == MoudleStates.SHOW)
 			{
 				if(mGTween)
 				{
@@ -227,7 +228,7 @@ package gFrameWork.uiModel
 					mGTween.target = null;
 					mGTween = null;
 				}
-				mGTween = new GTween(modelContent,0.3,{alpha:0},{ease:Sine.easeOut});
+				mGTween = new GTween(moudleContent,0.3,{alpha:0},{ease:Sine.easeOut});
 				mGTween.onComplete = hideEffectEnd;
 			}
 			else
@@ -249,12 +250,12 @@ package gFrameWork.uiModel
 		 */		
 		private function hideComplete():void
 		{
-			if(modelContent)
+			if(moudleContent)
 			{
-				var guiParent:DisplayObjectContainer = modelContent.parent;
+				var guiParent:DisplayObjectContainer = moudleContent.parent;
 				if(guiParent)
 				{
-					guiParent.removeChild(modelContent);
+					guiParent.removeChild(moudleContent);
 				}			}
 		}
 	}

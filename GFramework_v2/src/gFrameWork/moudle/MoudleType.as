@@ -1,6 +1,6 @@
-package gFrameWork.uiModel
+package gFrameWork.moudle
 {
-	public class UIModelType
+	public class MoudleType
 	{
 		public static const DEFAULT:int = 0;
 		public static const MAIN_UI:int = 1;				//主界面操作UI

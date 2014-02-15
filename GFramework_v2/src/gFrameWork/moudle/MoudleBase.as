@@ -1,4 +1,4 @@
-package gFrameWork.uiModel
+package gFrameWork.moudle
 {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
@@ -25,7 +25,7 @@ package gFrameWork.uiModel
 	 * @author taojiang
 	 * 
 	 */	
-	public class UIModelBase extends EventDispatcher implements IDisabled
+	public class MoudleBase extends EventDispatcher implements IDisabled
 	{
 		
 		/**
@@ -41,7 +41,7 @@ package gFrameWork.uiModel
 		/**
 		 * UI类型 
 		 */		
-		public var modelType:uint = UIModelType.DEFAULT;
+		public var moudleType:uint = MoudleType.DEFAULT;
 		
 		/**
 		 * 模块ID  
@@ -51,12 +51,12 @@ package gFrameWork.uiModel
 		/**
 		 * 窗口当前的状态
 		 */		
-		public var state:uint = UIModelStates.NORMAL;
+		public var state:uint = MoudleStates.NORMAL;
 		
 		/**
 		 * 在打开当前UI界面时先下载相关的资源文件处理 
 		 */		
-		public var preload:UIModelPreloader;
+		public var preload:MoudlePreloader;
 		
 		
 		/**
@@ -72,7 +72,7 @@ package gFrameWork.uiModel
 		/**
 		 * 显示的模块的容器
 		 */		
-		protected var modelContent:DisplayObject;
+		protected var moudleContent:DisplayObject;
 		
 		/**
 		 * 当前窗口的位置 
@@ -87,7 +87,7 @@ package gFrameWork.uiModel
 		
 		
 		
-		public function UIModelBase()
+		public function MoudleBase()
 		{
 			
 		}
@@ -105,8 +105,8 @@ package gFrameWork.uiModel
 		 */		
 		protected function internalInit():void
 		{
-			modelContent = new Sprite();
-			preload = new UIModelPreloader(this);
+			moudleContent = new Sprite();
+			preload = new MoudlePreloader(this);
 		}
 		
 		/**
@@ -114,13 +114,13 @@ package gFrameWork.uiModel
 		 */		
 		protected  function addToUiSpace():void
 		{
-			if(modelContent)
+			if(moudleContent)
 			{
-				if(!modelContent)
+				if(!moudleContent)
 				{
-					getSpace().addChild(modelContent);
+					getSpace().addChild(moudleContent);
 				}
-				state = UIModelStates.SHOW;
+				state = MoudleStates.SHOW;
 			}
 		}
 		
@@ -129,12 +129,12 @@ package gFrameWork.uiModel
 		 */		
 		protected function removeFromeUiSpace():void
 		{
-			if(modelContent)
+			if(moudleContent)
 			{
-				var guiParent:DisplayObjectContainer = modelContent.parent;
+				var guiParent:DisplayObjectContainer = moudleContent.parent;
 				if(guiParent)
 				{
-					guiParent.removeChild(modelContent);
+					guiParent.removeChild(moudleContent);
 				}
 				
 				if(mDieTime > 0)
@@ -153,11 +153,11 @@ package gFrameWork.uiModel
 		 */		
 		protected function validatePopupClick(event:MouseEvent):void
 		{
-			if(modelContent.stage)
+			if(moudleContent.stage)
 			{
-				if(!modelContent.hitTestPoint(event.stageX,event.stageY))
+				if(!moudleContent.hitTestPoint(event.stageX,event.stageY))
 				{
-					UIModelManager.close(modeID);
+					MoudleManager.close(modeID);
 				}
 			}
 		}
@@ -169,9 +169,9 @@ package gFrameWork.uiModel
 		 */		
 		protected function validateDieUI():void
 		{
-			if(state == UIModelStates.HIDE)
+			if(state == MoudleStates.HIDE)
 			{
-				UIModelManager.retireModel(modeID);
+				MoudleManager.retiremoudle(modeID);
 			}
 		}
 		
@@ -215,14 +215,14 @@ package gFrameWork.uiModel
 				{
 					if(!mPosition)
 					{
-						mPosition = new Point((getSpace().width - modelContent.width) / 2,(getSpace().height - modelContent.height) / 2);
+						mPosition = new Point((getSpace().width - moudleContent.width) / 2,(getSpace().height - moudleContent.height) / 2);
 					}
 				}
 				
 				mPosition.x = Math.round(mPosition.x);
 				mPosition.y = Math.round(mPosition.y);
-				modelContent.x = mPosition.x;
-				modelContent.y = mPosition.y;
+				moudleContent.x = mPosition.x;
+				moudleContent.y = mPosition.y;
 				
 				addToUiSpace();
 				openRefresh();
@@ -263,13 +263,13 @@ package gFrameWork.uiModel
 				preload.stopAndClear();
 			}
 			
-			if(modelContent)
+			if(moudleContent)
 			{
-				if(modelContent is IDisabled)
+				if(moudleContent is IDisabled)
 				{
-					IDisabled(modelContent).dispose();
+					IDisabled(moudleContent).dispose();
 				}
-				modelContent = null;
+				moudleContent = null;
 			}
 		}
 		
@@ -279,9 +279,9 @@ package gFrameWork.uiModel
 		 * @return 
 		 * 
 		 */		
-		public function getModelContent():DisplayObject
+		public function getmoudleContent():DisplayObject
 		{
-			return modelContent;
+			return moudleContent;
 		}
 		
 		/**
