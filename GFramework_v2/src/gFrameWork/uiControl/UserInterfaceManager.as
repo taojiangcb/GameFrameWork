@@ -418,10 +418,8 @@ class UserInternalManager
 	}
 	
 	/**
-	 * 
 	 * 按照ID取出UI 
 	 * @param id
-	 * 
 	 */	
 	private function retrievUIControlByID(id:uint):GUI
 	{
@@ -485,7 +483,6 @@ class GUI
 /**
  * UI注册对像 
  * @author JT
- * 
  */
 class UIRegister
 {
