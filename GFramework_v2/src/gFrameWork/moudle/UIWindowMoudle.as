@@ -1,4 +1,4 @@
-package gFrameWork.uiControl
+package gFrameWork.moudle
 {
 	import com.gskinner.motion.GTween;
 	import com.gskinner.motion.easing.Sine;
@@ -21,7 +21,7 @@ package gFrameWork.uiControl
 	 * @author JT
 	 * 
 	 */	
-	public class AppWindowUIController extends UserInterControls
+	public class UIWindowMoudle extends MoudleBase
 	{
 		
 		/**
@@ -53,24 +53,17 @@ package gFrameWork.uiControl
 		 * UI互斥ID 
 		 */		
 		public var mUIMutualID:uint = DEFAULT_GROUP_ID;
-		
-		/**
-		 * 关闭窗口时是否从可视列表中移除 
-		 */		
-		protected var mCanRemove:Boolean = false;
-		
-		
+				
 		/**
 		 * 可接受鼠标托动的区域 
 		 */		
-		private var mDragArea:DisplayObject;
+		private var mDragArea:Rectangle;
 		
 		
 		/**
 		 * 可以拖动的区域 
 		 */		
 		private var dragRectangel:Rectangle = null;
-		
 		
 		/**
 		 * 置顶执行的ID 
@@ -79,47 +72,50 @@ package gFrameWork.uiControl
 		
 		use namespace JTinternal;
 		
-		public function AppWindowUIController()
+		public function UIWindowMoudle()
 		{
 			super();
+			moudleType = MoudleType.WINDOW;
 			mUIMutualID = DEFAULT_GROUP_ID;
 			mUIMutualGroups = [DEFAULT_GROUP_ID];
 		}
 		
-		public override function internalInit(gui:DisplayObject):void
+		protected override function internalInit():void
 		{
-			super.internalInit(gui);
-			mGUI.addEventListener(Event.ADDED_TO_STAGE,firstToStageHandler,false,0,true);
-		}
-		
-		/**
-		 * 第一次添加到主场景中时调用 
-		 * @param event
-		 * 
-		 */		
-		private function firstToStageHandler(event:Event):void
-		{
-			mGUI.removeEventListener(Event.ADDED_TO_STAGE,firstToStageHandler);
-			if(mGUI.hasOwnProperty("dragArea"))
+			super.internalInit();
+			
+			if(moudleContent)
 			{
-				mDragArea = Object(mGUI).dragArea as DisplayObject;
-				mGUI.addEventListener(MouseEvent.MOUSE_DOWN,theMouseDownHandler,false,0,true);
-				dragRectangel = new Rectangle(getSpace().x,getSpace().y,getSpace().width - mGUI.width,getSpace().height - mGUI.height);
+				//鼠标拖拽
+				mDragArea = new Rectangle(0,0,moudleContent.width,Math.min(35,moudleContent.height));
+				moudleContent.addEventListener(MouseEvent.MOUSE_DOWN,theMouseDownHandler,false,0,true);
+				dragRectangel = new Rectangle(getSpace().x,getSpace().y,getSpace().width - moudleContent.width,getSpace().height - moudleContent.height);
 			}
 		}
 		
+			
 		/**
 		 * 鼠标按下时处理，是拖拽窗口还是置顶窗口
 		 * @param event
 		 */		
 		private function theMouseDownHandler(event:MouseEvent):void
 		{
-			if(mCanDrag && mDragArea && mDragArea.hitTestPoint(GFrameWork.getInstance().root.mouseX,GFrameWork.getInstance().root.mouseY))
+			var localPt:Point = new Point(event.localX,event.localY);
+			
+			if(mCanDrag 
+				&& mDragArea 
+				&& localPt.x >= mDragArea.x 
+				&& localPt.x <= mDragArea.width 
+				&& localPt.y >= mDragArea.y
+				&& localPt.y <= mDragArea.height)
 			{
 				//拖拽
-				mGUI.stage.removeEventListener(MouseEvent.MOUSE_UP,dragStop);
-				mGUI.stage.addEventListener(MouseEvent.MOUSE_UP,dragStop,false,0,true);
-				Sprite(mGUI).startDrag(false,new Rectangle(getSpace().x,getSpace().y,getSpace().width - mGUI.width,getSpace().height - mGUI.height));
+				moudleContent.stage.removeEventListener(MouseEvent.MOUSE_UP,dragStop);
+				moudleContent.stage.addEventListener(MouseEvent.MOUSE_UP,dragStop,false,0,true);
+				Sprite(moudleContent).startDrag(false,new Rectangle(getSpace().x,
+					getSpace().y,
+					getSpace().width - moudleContent.width,
+					getSpace().height - moudleContent.height));
 				hotDisplay();
 			}
 			else
@@ -134,7 +130,7 @@ package gFrameWork.uiControl
 		 */		
 		public function hotDisplay():void
 		{
-			getSpace().setChildIndex(mGUI,getSpace().numChildren - 1);
+			getSpace().setChildIndex(moudleContent,getSpace().numChildren - 1);
 		}
 		
 		/**
@@ -143,15 +139,15 @@ package gFrameWork.uiControl
 		 */		
 		private function dragStop(event:MouseEvent):void
 		{
-			Sprite(mGUI).stopDrag();
-			mPosition.x = mGUI.x;
-			mPosition.y = mGUI.y;
+			Sprite(moudleContent).stopDrag();
+			mPosition.x = moudleContent.x;
+			mPosition.y = moudleContent.y;
 		}
 		
 		/**
 		 * 打开显示窗口 
 		 */		
-		public override function show(isPop:Boolean=false, point:Point=null):void
+		public override function show(isPop:Boolean=false, point:Point=null,data:Object = null):void
 		{
 			super.show();
 			if(mDieInterID > 0)
@@ -168,19 +164,17 @@ package gFrameWork.uiControl
 		 */		
 		protected override function addToUiSpace():void
 		{
-			if(mGUI)
+			if(moudleContent)
 			{
-				if(!mGUI.parent)
+				if(!moudleContent.parent)
 				{
-					getSpace().addChild(mGUI);
+					getSpace().addChild(moudleContent);
 				}
-				else
-				{
-					mGUI.visible = true;
-				}
-				state = UIStates.SHOW;
+				state = MoudleStates.SHOW;
 			}
-			mGUI.alpha = 1;
+			
+			moudleContent.alpha = 1;
+			
 			if(toHotID > 0)
 			{
 				clearTimeout(toHotID);
@@ -206,10 +200,10 @@ package gFrameWork.uiControl
 		{
 			if(mDragArea)
 			{
-				mGUI.removeEventListener(MouseEvent.MOUSE_DOWN,theMouseDownHandler);
-				if(mGUI.stage)
+				moudleContent.removeEventListener(MouseEvent.MOUSE_DOWN,theMouseDownHandler);
+				if(moudleContent.stage)
 				{
-					mGUI.stage.removeEventListener(MouseEvent.MOUSE_UP,dragStop);
+					moudleContent.stage.removeEventListener(MouseEvent.MOUSE_UP,dragStop);
 				}
 				else
 				{
@@ -226,7 +220,7 @@ package gFrameWork.uiControl
 		 */		
 		private function hideEffect():void
 		{
-			if(state == UIStates.SHOW)
+			if(state == MoudleStates.SHOW)
 			{
 				if(mGTween)
 				{
@@ -234,7 +228,7 @@ package gFrameWork.uiControl
 					mGTween.target = null;
 					mGTween = null;
 				}
-				mGTween = new GTween(mGUI,0.3,{alpha:0},{ease:Sine.easeOut});
+				mGTween = new GTween(moudleContent,0.3,{alpha:0},{ease:Sine.easeOut});
 				mGTween.onComplete = hideEffectEnd;
 			}
 			else
@@ -256,21 +250,13 @@ package gFrameWork.uiControl
 		 */		
 		private function hideComplete():void
 		{
-			if(mGUI)
+			if(moudleContent)
 			{
-				if(mCanRemove)
+				var guiParent:DisplayObjectContainer = moudleContent.parent;
+				if(guiParent)
 				{
-					var guiParent:DisplayObjectContainer = mGUI.parent;
-					if(guiParent)
-					{
-						guiParent.removeChild(mGUI);
-					}
-				}
-				else 
-				{
-					mGUI.visible = false;
-				}
-			}
+					guiParent.removeChild(moudleContent);
+				}			}
 		}
 	}
 }

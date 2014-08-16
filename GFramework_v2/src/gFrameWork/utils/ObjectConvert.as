@@ -197,21 +197,6 @@ package gFrameWork.utils
 			return result;	
 		}
 		
-//		public static function objectToStruct(value:*):Object
-//		{
-//			var refCls:Object;
-//			var result:Object;
-//			var mark:String;
-//			if(value.hasOwnProperty("_explicitType"))
-//			{
-//				mark = "_explicitType";
-//			}else if(value.hasOwnProperty("className"))
-//			{
-//				mark = "";
-//			}
-//		}
-		//{name:000000000000;channel:1;MSGG:{name:Tatatatatat;channel:20;MSGG:{class:ull;};OObject:{class:ull;};message:BBBBBBBBBBBBBBBBBBBBBBBBB;userid:0;array:[];class:ChatMessageVO;};OObject:{TT:bbTT;CC:CCBB;class:Object;};message:asdfffasf;userid:0;array:[1,2,3,5,7,6,99,"bbbb"];class:ChatMessageVO;}
-		
 		public static function stringConvertToObjectV2(str:String,splitFlag:String = "/"):Array
 		{
 			return str.split(splitFlag);

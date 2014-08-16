@@ -1,7 +1,8 @@
-package gFrameWork.uiControl
+package gFrameWork.moudle
 {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.MouseEvent;
@@ -19,12 +20,44 @@ package gFrameWork.uiControl
 	
 	use namespace JTinternal;
 	
-	public class UserInterControls extends EventDispatcher implements IDisabled
+	/**
+	 * 模块的基类 
+	 * @author taojiang
+	 * 
+	 */	
+	public class MoudleBase extends EventDispatcher implements IDisabled
 	{
+		
 		/**
-		 * 标识ID  
+		 * 调用show时传入的函数 
 		 */		
-		public var mGUI_ID:uint = 0;
+		private var openingData:Object = null;
+		
+		/**
+		 * 是合被完全初始化过 
+		 */		
+		private var isInited:Boolean = false;
+		
+		/**
+		 * UI类型 
+		 */		
+		public var moudleType:uint = MoudleType.DEFAULT;
+		
+		/**
+		 * 模块ID  
+		 */		
+		public var modeID:uint = 0;
+		
+		/**
+		 * 窗口当前的状态
+		 */		
+		public var state:uint = MoudleStates.NORMAL;
+		
+		/**
+		 * 在打开当前UI界面时先下载相关的资源文件处理 
+		 */		
+		public var preload:MoudlePreloader;
+		
 		
 		/**
 		 *  销毁清理的检测时间以毫秒为单位，如果此值为0时表示该UI不会被回收。
@@ -37,24 +70,15 @@ package gFrameWork.uiControl
 		protected var mDieInterID:uint = 0;
 
 		/**
-		 * GUI组件 
+		 * 显示的模块的容器
 		 */		
-		protected var mGUI:DisplayObject;
+		protected var moudleContent:DisplayObject;
 		
 		/**
 		 * 当前窗口的位置 
 		 */		
 		protected var mPosition:Point;
 		
-		/**
-		 * 窗口当前的状态
-		 */		
-		public var state:uint = UIStates.NORMAL;
-		
-		/**
-		 * 在打开当前UI界面时先下载相关的资源文件处理 
-		 */		
-		public var uiElementLoading:UIPreloader;
 		
 		/**
 		 * 是否可以使用的标识
@@ -62,7 +86,8 @@ package gFrameWork.uiControl
 		JTinternal var mCanUse:Boolean = false;
 		
 		
-		public function UserInterControls()
+		
+		public function MoudleBase()
 		{
 			
 		}
@@ -76,13 +101,12 @@ package gFrameWork.uiControl
 		}
 		
 		/**
-		 * 初始化 
+		 * 当前模块第一次调用show()函数的时候，会进入一个模块初始化过程中
 		 */		
-		public function internalInit(gui:DisplayObject):void
+		protected function internalInit():void
 		{
-			if(!gui) throw new Error("gui 不能为空");
-			mGUI = gui;
-			uiElementLoading = new UIPreloader(this);
+			moudleContent = new Sprite();
+			preload = new MoudlePreloader(this);
 		}
 		
 		/**
@@ -90,13 +114,13 @@ package gFrameWork.uiControl
 		 */		
 		protected  function addToUiSpace():void
 		{
-			if(mGUI)
+			if(moudleContent)
 			{
-				if(!mGUI)
+				if(!moudleContent)
 				{
-					getSpace().addChild(mGUI);
+					getSpace().addChild(moudleContent);
 				}
-				state = UIStates.SHOW;
+				state = MoudleStates.SHOW;
 			}
 		}
 		
@@ -105,12 +129,12 @@ package gFrameWork.uiControl
 		 */		
 		protected function removeFromeUiSpace():void
 		{
-			if(mGUI)
+			if(moudleContent)
 			{
-				var guiParent:DisplayObjectContainer = mGUI.parent;
+				var guiParent:DisplayObjectContainer = moudleContent.parent;
 				if(guiParent)
 				{
-					guiParent.removeChild(mGUI);
+					guiParent.removeChild(moudleContent);
 				}
 				
 				if(mDieTime > 0)
@@ -129,14 +153,38 @@ package gFrameWork.uiControl
 		 */		
 		protected function validatePopupClick(event:MouseEvent):void
 		{
-			if(mGUI.stage)
+			if(moudleContent.stage)
 			{
-				if(!mGUI.hitTestPoint(event.stageX,event.stageY))
+				if(!moudleContent.hitTestPoint(event.stageX,event.stageY))
 				{
-					UserInterfaceManager.close(mGUI_ID);
+					MoudleManager.close(modeID);
 				}
 			}
 		}
+		
+		/**
+		 *
+		 *  检测是否销毁此UI 
+		 * 
+		 */		
+		protected function validateDieUI():void
+		{
+			if(state == MoudleStates.HIDE)
+			{
+				MoudleManager.retiremoudle(modeID);
+			}
+		}
+		
+		/**
+		 * 获取显示层级的根 
+		 * @return 
+		 * 
+		 */		
+		protected function getRoot():DisplayObjectContainer
+		{
+			return GFrameWork.getInstance().root;
+		}
+
 		
 		/**
 		 * 
@@ -145,10 +193,20 @@ package gFrameWork.uiControl
 		 * @param point		//开启时UI的显示位置
 		 * 
 		 */		
-		public function show(isPop:Boolean = false,point:Point = null):void
+		public function show(isPop:Boolean = false,point:Point = null,data:Object = null):void
 		{
+			
+			openingData = data;
+			
 			if(mCanUse)
 			{
+				
+				if(!isInited)
+				{
+					internalInit();
+					isInited = true;
+				}
+				
 				if(point)
 				{
 					mPosition = point;
@@ -157,14 +215,14 @@ package gFrameWork.uiControl
 				{
 					if(!mPosition)
 					{
-						mPosition = new Point((getSpace().width - mGUI.width) / 2,(getSpace().height - mGUI.height) / 2);
+						mPosition = new Point((getSpace().width - moudleContent.width) / 2,(getSpace().height - moudleContent.height) / 2);
 					}
 				}
 				
 				mPosition.x = Math.round(mPosition.x);
 				mPosition.y = Math.round(mPosition.y);
-				mGUI.x = mPosition.x;
-				mGUI.y = mPosition.y;
+				moudleContent.x = mPosition.x;
+				moudleContent.y = mPosition.y;
 				
 				addToUiSpace();
 				openRefresh();
@@ -196,45 +254,34 @@ package gFrameWork.uiControl
 		
 		public function dispose():void
 		{
-			if(mGUI)
+			
+			getRoot().removeEventListener(MouseEvent.CLICK,validatePopupClick,true);
+			removeFromeUiSpace();
+			
+			if(preload)
 			{
-				getRoot().removeEventListener(MouseEvent.CLICK,validatePopupClick,true);
-				removeFromeUiSpace();
-				
-				if(uiElementLoading)
+				preload.stopAndClear();
+			}
+			
+			if(moudleContent)
+			{
+				if(moudleContent is IDisabled)
 				{
-					uiElementLoading.stopAndClear();
+					IDisabled(moudleContent).dispose();
 				}
-				
-				if(mGUI is IDisabled)
-				{
-					IDisabled(mGUI).dispose();
-				}
-				mGUI = null;
+				moudleContent = null;
 			}
 		}
 		
+				
 		/**
-		 *
-		 *  检测是否销毁此UI 
-		 * 
-		 */		
-		protected function validateDieUI():void
-		{
-			if(state == UIStates.HIDE)
-			{
-				UserInterfaceManager.retireUI(mGUI_ID);
-			}
-		}
-		
-		/**
-		 * ui 
+		 * 模块的显示的容器
 		 * @return 
 		 * 
 		 */		
-		public function getGui():DisplayObject
+		public function getmoudleContent():DisplayObject
 		{
-			return mGUI;
+			return moudleContent;
 		}
 		
 		/**
@@ -257,12 +304,14 @@ package gFrameWork.uiControl
 			return null;
 		}
 		
-		protected function getRoot():DisplayObjectContainer
+		/**
+		 * 是否完成初始化工作 
+		 * @return 
+		 */		
+		public function get initialize():Boolean
 		{
-			return GFrameWork.getInstance().root;
-		}
-		
-		
+			return initialize;
+		}		
 		
 	}
 }
