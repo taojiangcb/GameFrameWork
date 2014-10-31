@@ -256,7 +256,8 @@ package gFrameWork.moudle
 				if(guiParent)
 				{
 					guiParent.removeChild(moudleContent);
-				}			}
+				}			
+			}
 		}
 	}
 }

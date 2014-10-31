@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="GFramework_v2.as" projectUUID="024892d2-168f-45b7-b1c8-ccfe1bda9c0e" version="10">
-  <compiler additionalCompilerArguments="-locale en_US" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
-    <compilerSourcePath>
-      <compilerSourcePathEntry kind="1" linkType="1" path="/Users/taojiang/Documents/workspace/as3/GameFrameWork/as3Lib/theflashbum-stats.as-2b0ad10"/>
-      <compilerSourcePathEntry kind="1" linkType="1" path="/Users/taojiang/Documents/workspace/as3/GameFrameWork/as3Lib/PureMVC_AS3_2_0_4/src"/>
-      <compilerSourcePathEntry kind="1" linkType="1" path="/Users/taojiang/Documents/workspace/as3/GameFrameWork/as3Lib/nochump-ziplib-105-src/src"/>
-      <compilerSourcePathEntry kind="1" linkType="1" path="/Users/taojiang/Documents/workspace/as3/GameFrameWork/as3Lib/GTween_v2_01/src"/>
-    </compilerSourcePath>
+<actionScriptProperties analytics="false" mainApplicationPath="GFramework_v2.as" projectUUID="f3432e95-5a26-4d95-85c3-85448dade1e9" version="11">
+  <compiler additionalCompilerArguments="-locale zh_CN" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="true" useDebugRSLSwfs="true" useFlashSDK="false" verifyDigests="true" warn="true">
+    <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
+        <modifiedEntries>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/advancedgrids.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/asc-support.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/authoringsupport.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/charts.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flash-integration.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/osmf.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/rpc.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/spark.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/sparkskins.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/spark_dmv.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/textLayout.swc" useDefaultLinkType="false"/>
+        </modifiedEntries>
         <excludedEntries>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/core.swc" useDefaultLinkType="false"/>
         </excludedEntries>
       </libraryPathEntry>
-      <libraryPathEntry kind="3" linkType="1" path="/Users/taojiang/Documents/workspace/as3/GameFrameWork/as3Lib/protobuf.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="1" linkType="1" path="libs"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
@@ -22,6 +31,7 @@
     <application path="GFramework_v2.as"/>
   </applications>
   <modules/>
+  <workers/>
   <buildCSSFiles/>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
 </actionScriptProperties>
